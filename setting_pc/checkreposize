@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Prompt the user to enter the GitHub repository URL
+echo "Enter the GitHub repository URL:"
+read -r repo_url
+
+# Extract the repository name from the URL
+repo_name=$(echo "$repo_url" | perl -ne 'print $1 if m!([^/]+/[^/]+?)(?:\.git)?$!')
+
+# Use curl to fetch repository information from the GitHub API and grep for the size
+size=$(curl -s -k "https://api.github.com/repos/$repo_name" | grep -o '"size": [0-9]*')
+
+# Check if size information is found
+if [ -n "$size" ]; then
+    # Extract size value and convert from KB to MB by dividing by 1024
+    size_kb=${size##*:}
+    size_mb=$(echo "scale=2; $size_kb / 1024" | bc)
+    echo "Estimated size of the repository $repo_name: $size_mb MB"
+else
+    echo "Unable to fetch size information for the repository $repo_name"
+fi

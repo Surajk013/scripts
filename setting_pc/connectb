@@ -1,0 +1,4 @@
+!#/bin/sh
+sudo systemctl restart bluetooth
+bluetoothctl connect 2C:FD:B4:7E:65:6A 
+pactl set-default-sink bluez_output.2C_FD_B4_7E_65_6A.a2dp-sink

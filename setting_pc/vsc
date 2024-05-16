@@ -1,0 +1,4 @@
+#!/bin/sh
+
+code
+thorium-browser-avx2

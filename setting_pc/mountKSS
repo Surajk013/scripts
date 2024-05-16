@@ -1,0 +1,2 @@
+!#/bin/sh
+sudo mount /dev/sda6 /run/media/suraj/KSS
